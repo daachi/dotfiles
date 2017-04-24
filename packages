@@ -1,0 +1,68 @@
+cd ~
+mkdir bin doc etc src tmp
+
+# tfenv relies on unzip
+sudo apt-get install zsh virtualenv virtualenvwrapper python python3 tree unzip -qyy
+
+# rvm
+# refer to  rvm.io for the gpg steps
+mkdir -p ~/tmp/rvm && cd ~/tmp/rvm
+gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+\curl -O https://raw.githubusercontent.com/rvm/rvm/master/binscripts/rvm-installer
+\curl -O https://raw.githubusercontent.com/rvm/rvm/master/binscripts/rvm-installer.asc
+gpg --verify rvm-installer.asc
+bash rvm-installer stable
+source /home/daachi/.rvm/scripts/rvm
+rvm requirements
+
+# docker
+https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-16-04
+usermod -a -Gdocker ajohnston
+
+# nvm for node/triton
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.1/install.sh | bash
+nvm install v7.2.1
+npm install -g triton
+
+# go
+cd /usr/local/src
+sudo curl -O https://storage.googleapis.com/golang/go1.7.linux-amd64.tar.gz
+sudo curl -O https://storage.googleapis.com/golang/go1.8.linux-amd64.tar.gz
+
+tar xzvf go1.7.linux-amd64.tar.gz && sudo mv go go1.7
+tar xzvf go1.8.linux-amd64.tar.gz && sudo mv go go1.8
+
+cd ..
+sudo ln -s src/go1.7 /usr/local/go
+
+cd
+mkdir -p src/go-work
+export GOPATH=/home/ajohnston/src/go-work
+export PATH="${PATH}:/usr/local/go/bin"
+
+# tfenv
+#  - terraform
+git clone https://github.com/kamatama41/tfenv.git ~/.tfenv
+ln -s ~/.tfenv/bin/* ~/bin
+tf install 0.8.6
+
+# aws-cli
+mkvirtualenv aws
+sudo apt-get install -qyy python-dev python3-dev
+pip install awscli
+
+## nerdtree for vim
+## NB .vimrc is already configured for this
+# pathogen
+mkdir -p ~/.vim/autoload ~/.vim/bundle
+curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+
+# nerdtree
+git clone https://github.com/scrooloose/nerdtree.git ~/.vim/bundle/nerdtree
+
+# fzf, fuzzy search in Go
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
+
+# needed
+chef
