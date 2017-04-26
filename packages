@@ -2,7 +2,7 @@ cd ~
 mkdir bin doc etc src tmp
 
 # tfenv relies on unzip
-sudo apt-get install zsh virtualenv virtualenvwrapper python python3 tree unzip -qyy
+sudo apt-get install zsh virtualenv virtualenvwrapper python python3 tree unzip tig -qyy
 
 # rvm
 # refer to  rvm.io for the gpg steps
@@ -23,6 +23,9 @@ usermod -a -Gdocker ajohnston
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.1/install.sh | bash
 nvm install v7.2.1
 npm install -g triton
+
+# triton
+# process for migrating/keeping profiles up to date?
 
 # go
 cd /usr/local/src
@@ -63,6 +66,26 @@ git clone https://github.com/scrooloose/nerdtree.git ~/.vim/bundle/nerdtree
 # fzf, fuzzy search in Go
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
+
+# tmate // tmate.io
+sudo apt-get install software-properties-common && \
+sudo add-apt-repository ppa:tmate.io/archive    && \
+sudo apt-get update                             && \
+sudo apt-get install tmate
+
+# pass
+## deal with gpg stuff first
+gpg --list-secret-keys
+gpg --armor --output <key-name>.asc --export-secret-keys <key ID>
+
+gpg --import <key name.asc>
+
+sudo apt-get install pass
+pass init "Anthony J Burton <daachi@whenpbmetj.org"   # yes, I should change this to the ID
+pass git init
+pass git remote add origin git@github.com:daachi/pass-store.git
+pass git pull -u origin master
+
 
 # needed
 chef
