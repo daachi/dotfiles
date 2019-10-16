@@ -27,11 +27,10 @@ npm install -g triton
 # triton
 # process for migrating/keeping profiles up to date?
 
-# go
+## go
 cd /usr/local/src
-sudo curl -O https://storage.googleapis.com/golang/go1.7.linux-amd64.tar.gz
-sudo curl -O https://storage.googleapis.com/golang/go1.8.linux-amd64.tar.gz
-
+sudo curl -s -O https://storage.googleapis.com/golang/go1.7.linux-amd64.tar.gz
+sudo curl -s -O https://storage.googleapis.com/golang/go1.8.linux-amd64.tar.gz
 tar xzvf go1.7.linux-amd64.tar.gz && sudo mv go go1.7
 tar xzvf go1.8.linux-amd64.tar.gz && sudo mv go go1.8
 
@@ -42,6 +41,10 @@ cd
 mkdir -p src/go-work
 export GOPATH=/home/ajohnston/src/go-work
 export PATH="${PATH}:/usr/local/go/bin"
+
+# 2019-03
+# now using "g"
+https://github.com/stefanmaric/g
 
 # tfenv
 #  - terraform
