@@ -46,6 +46,9 @@ export PATH="${PATH}:/usr/local/go/bin"
 # now using "g"
 https://github.com/stefanmaric/g
 
+## lab (for GitLab + git)
+https://github.com/zaquestion/lab
+
 # tfenv
 #  - terraform
 git clone https://github.com/kamatama41/tfenv.git ~/.tfenv
