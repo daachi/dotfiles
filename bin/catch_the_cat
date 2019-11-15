@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+set -x
+
+ETA=`curl -s 'http://avlweb.charlottesville.org/RTT/Public/Utility/File.aspx?ContentType=SQLXML&Name=RoutePositionETForMap&Proj=SM&PlatformTag=103' -H 'Accept: */*' -H 'Connection: keep-alive' -H 'Accept-Encoding: gzip, deflate, sdch' -H 'Referer: http://avlweb.charlottesville.org/RTT/Public/PlatformETMap.aspx?ProjectID=CTS' -H 'Accept-Language: en-US,en;q=0.8' -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.63 Safari/537.36' --compressed | grep Trip | awk '{ print $2 }' | sed 's/ETA=//' | sed 's/"//g'`
+
+if [ "$ETA" = "" ]; then
+  espeak "There is no bus in the next 30 minutes"
+else
+  echo "The bus will arrive in $ETA minutes." | espeak
+fi
+
+# so, what, take if ETA > 25 minutes, divide by 2 and set a job
+# to fire/alert again in half the time, and then another...?
+
+# ideal: alert once down to 8 minutes, and at 8 minutes,
+# the alert should be, "Go to the bus stop now."
+
+# but, you have to check the ETA every minute becuase it's dynamic
+
+# figure out how to feed in the stop, so you could use this other
+# than at home

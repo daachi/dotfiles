@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+triton profile list -j | jq -r 'select(.curr==true) | .name'

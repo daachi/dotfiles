@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+# add a test here
+if ( pgrep openconnect &> /dev/null )
+then
+  # senging SIGINT kills cleanly
+  sudo kill -s INT `pgrep openconnect`
+fi
+
+sudo -l &> /dev/null
+
+pass optoro/ad |\
+  sudo openconnect --user ajohnston \
+  --passwd-on-stdin \
+  --no-dtls \
+  --no-cert-check \
+  --syslog \
+  --background \
+  https://vpn-001.us-east.optoro.io
+
+
+# TODO:
+#   - add us-sw
+#   - make a kill function
+#   - add start/stop

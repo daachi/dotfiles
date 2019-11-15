@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+sudo ifdown wlp2s0
+
+sudo ifup wlp2s0

@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+ssh-add
+ssh-add ~/.ssh/optoro-io-devops-rsa
+ssh-add ~/.ssh/optoro-ajohnston-ed25519
+ssh-add ~/.ssh/id_rsa_old_secure

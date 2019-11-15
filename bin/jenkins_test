@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+bundle install
+
+bundle exec berks install
+
+set -e
+bundle exec foodcritic -f any -B ./ -G
+bundle exec thor test:test
