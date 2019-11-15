@@ -1,0 +1,12 @@
+[user]
+	email = ajohnston@optoro.com
+	name = Anthony R Johnston
+	signingkey = 158222B7F88D81EE
+[push]
+	default = matching
+[core]
+	excludesfile = /home/daachi/.gitignore_global
+[fetch]
+	recurseSubmodules = false
+[gpg]
+	program = gpg2
