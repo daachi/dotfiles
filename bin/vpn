@@ -13,7 +13,6 @@ pass optoro/ad |\
   sudo openconnect --user ajohnston \
   --passwd-on-stdin \
   --no-dtls \
-  --no-cert-check \
   --syslog \
   --background \
   https://vpn-001.us-east.optoro.io
