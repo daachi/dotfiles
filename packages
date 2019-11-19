@@ -4,16 +4,7 @@ mkdir bin doc etc src tmp
 # tfenv relies on unzip
 sudo apt-get install zsh virtualenv virtualenvwrapper python python3 tree unzip tig -qyy
 
-# rvm
-# refer to  rvm.io for the gpg steps
-mkdir -p ~/tmp/rvm && cd ~/tmp/rvm
-gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
-\curl -O https://raw.githubusercontent.com/rvm/rvm/master/binscripts/rvm-installer
-\curl -O https://raw.githubusercontent.com/rvm/rvm/master/binscripts/rvm-installer.asc
-gpg --verify rvm-installer.asc
-bash rvm-installer stable
-source /home/daachi/.rvm/scripts/rvm
-rvm requirements
+sudo apt install -y openconnect
 
 # docker
 https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-16-04
