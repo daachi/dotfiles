@@ -95,3 +95,7 @@ pass git pull -u origin master
 
 # needed
 chef
+
+
+## in ~/bin
+# rancher, packer, exercism, op (One Password)...
