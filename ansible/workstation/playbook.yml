@@ -1,0 +1,37 @@
+---
+# This playbook contains common plays that will be run on all nodes.
+
+- hosts: workstation
+  tasks:
+  - name: Add my user
+    become: yes
+    user:
+      name: ajohnston
+      shell: /usr/bin/zsh
+      groups: adm,sudo,lxd,docker,microk8s
+      append: yes
+
+  - name: Set authorized key taken from file
+    become: yes
+    authorized_key:
+      user: ajohnston
+      state: present
+      key: "{{ lookup('file', '/home/daachi/.ssh/id_ed25519.pub') }}"
+
+  - name: Install base packages
+    become: yes
+    apt:
+      update_cache: yes
+      pkg:
+        - zsh
+        - virtualenv
+        - virtualenvwrapper
+        - python3
+        - tree
+        - unzip
+        - tig
+        - vim
+        - tmux
+        - curl
+        - glances
+        - dmitry
