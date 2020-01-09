@@ -1,0 +1,18 @@
+---
+# Base packages to install
+package_upgrade: yes
+packages:
+  - zsh
+  - virtualenv
+  - virtualenvwrapper
+  - python3
+  - tree
+  - unzip
+  - tig
+  - vim
+  - tmux
+  - curl
+  - glances
+  - dmitry
+  - jq
+  - build-essential

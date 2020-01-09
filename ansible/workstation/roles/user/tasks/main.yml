@@ -1,0 +1,27 @@
+- name: Add my user
+  become: yes
+  user:
+    name: ajohnston
+    shell: /usr/bin/zsh
+    groups: adm,sudo,lxd,docker,microk8s
+    append: yes
+
+- name: Set authorized key taken from file
+  become: yes
+  authorized_key:
+    user: ajohnston
+    state: present
+    key: "{{ lookup('file', '/home/daachi/.ssh/id_ed25519.pub') }}"
+
+- name: Setup home directory
+  become: yes
+  become_user: ajohnston
+  file:
+    path: "~/{{ item }}"
+    state: directory
+  with_items:
+    - 'doc'
+    - 'src'
+    - 'tmp'
+    - 'etc'
+    - 'bin'

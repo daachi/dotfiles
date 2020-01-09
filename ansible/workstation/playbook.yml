@@ -17,21 +17,3 @@
       user: ajohnston
       state: present
       key: "{{ lookup('file', '/home/daachi/.ssh/id_ed25519.pub') }}"
-
-  - name: Install base packages
-    become: yes
-    apt:
-      update_cache: yes
-      pkg:
-        - zsh
-        - virtualenv
-        - virtualenvwrapper
-        - python3
-        - tree
-        - unzip
-        - tig
-        - vim
-        - tmux
-        - curl
-        - glances
-        - dmitry
