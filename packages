@@ -1,10 +1,59 @@
 cd ~
 mkdir bin doc etc src tmp
 
-# tfenv relies on unzip
-sudo apt-get install zsh virtualenv virtualenvwrapper python python3 tree unzip tig -qyy
+sudo apt-get install zsh virtualenv virtualenvwrapper python python3 tree unzip tig vim -qyy
 
+# pass
+## deal with gpg stuff first
+gpg --list-secret-keys
+gpg --armor --output <key-name>.asc --export-secret-keys <key ID>
+# scp <key-name>.asc new-system:~ ... or some such
+
+# on new system
+gpg --import <key name.asc>
+# have to trust the key after import, or pass/signing (i.e. add/edit) won't work properly
+gpg --edit-key "Anthony R Johnston <daachi@whenpbmetj.org>"
+# trust, 5, CTRL-D
+
+sudo apt-get install pass
+pass init "Anthony R Johnston <daachi@whenpbmetj.org>"
+pass git init
+pass git remote add origin git@github.com:daachi/pass-store.git
+pass git pull -u origin master
+
+# vpn requires sudo,pass,gpg
 sudo apt install -y openconnect
+
+# asdf
+# https://asdf-vm.com/#/core-manage-asdf-vm
+
+# ref: https://www.cogini.com/blog/using-asdf-with-elixir-and-phoenix/
+git clone git@github.com:asdf-vm/asdf.git ~/.asdf
+
+# erlang
+asdf plugin-add erlang
+asdf install erlang 22.0.7
+
+# elixir
+asdf plugin-add elixir
+asdf install elixir 1.9.1-otp-22
+
+# nodejs
+# this gets us npm
+asdf plugin-add nodejs
+asdf install nodejs 11.6.0
+
+# go
+asdf plugin-add golang
+asdf install golang 1.13.4
+
+# terraform
+asdf plugin-add terraform
+asdf install terraform 0.12.7
+
+# ruby
+asdf plugin-add ruby
+asdf install ruby 2.5.1
 
 # docker
 https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-16-04
@@ -12,46 +61,13 @@ https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-o
 
 usermod -a -Gdocker ajohnston
 
-# nvm for node/triton
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.1/install.sh | bash
-nvm install v7.2.1
-npm install -g triton
 
 # triton
 # process for migrating/keeping profiles up to date?
-
-## go
-cd /usr/local/src
-sudo curl -s -O https://storage.googleapis.com/golang/go1.7.linux-amd64.tar.gz
-sudo curl -s -O https://storage.googleapis.com/golang/go1.8.linux-amd64.tar.gz
-tar xzvf go1.7.linux-amd64.tar.gz && sudo mv go go1.7
-tar xzvf go1.8.linux-amd64.tar.gz && sudo mv go go1.8
-
-cd ..
-sudo ln -s src/go1.7 /usr/local/go
-
-cd
-mkdir -p src/go-work
-export GOPATH=/home/ajohnston/src/go-work
-export PATH="${PATH}:/usr/local/go/bin"
-
-# 2019-03
-# now using "g"
-https://github.com/stefanmaric/g
+npm install -g triton
 
 ## lab (for GitLab + git)
 https://github.com/zaquestion/lab
-
-# tfenv
-#  - terraform
-git clone https://github.com/kamatama41/tfenv.git ~/.tfenv
-ln -s ~/.tfenv/bin/* ~/bin
-tf install 0.8.6
-
-# aws-cli
-mkvirtualenv aws
-sudo apt-get install -qyy python-dev python3-dev
-pip install awscli
 
 ## nerdtree for vim
 ## NB .vimrc is already configured for this
@@ -66,28 +82,27 @@ git clone https://github.com/scrooloose/nerdtree.git ~/.vim/bundle/nerdtree
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
 
+# ansible
+sudo apt-add-repository --yes --update ppa:ansible/ansible
+sudo apt install -y ansible
+
 # tmate // tmate.io
 sudo apt-get install software-properties-common && \
 sudo add-apt-repository ppa:tmate.io/archive    && \
 sudo apt-get update                             && \
 sudo apt-get install tmate
 
-# pass
-## deal with gpg stuff first
-gpg --list-secret-keys
-gpg --armor --output <key-name>.asc --export-secret-keys <key ID>
-
-gpg --import <key name.asc>
-
-sudo apt-get install pass
-pass init "Anthony J Burton <daachi@whenpbmetj.org"   # yes, I should change this to the ID
-pass git init
-pass git remote add origin git@github.com:daachi/pass-store.git
-pass git pull -u origin master
-
 
 # needed
 chef
+dropbox
+ - https://www.dropbox.com/install-linuxhttps://www.dropbox.com/install-linux
+
+backups
+  - configuration in code
+    - dotfiles
+    - maintenance schedule/reminders
+  - don't fill backup with cruft (i.e. virtualenvs/ruby/etc)
 
 
 ## in ~/bin
