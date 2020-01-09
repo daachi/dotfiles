@@ -1,0 +1,14 @@
+[ ] Ansible setup
+[ ] Scripts for linking dotfiles
+  [ ] I think there may be plugins for this?
+
+[ ] Add kubernetes setup
+  [ ] rancher
+  [ ] kubectl
+  [ ] kubectx / kubens
+
+[ ] Setup should come out of "packages" and either into ansible or some other mechanism
+[ ] OnePassword (op)
+[ ] exercism
+[ ] chef
+[ ] backups!
