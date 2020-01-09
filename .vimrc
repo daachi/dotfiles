@@ -12,7 +12,7 @@ filetype plugin indent on
 set shiftwidth=2
 set autoindent
 set expandtab
-set background=light
+set background=dark
 
 set incsearch
 set hlsearch

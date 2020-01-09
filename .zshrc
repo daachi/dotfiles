@@ -12,7 +12,7 @@ autoload -Uz compinit && compinit -i
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /home/daachi/bin/vault vault
 
-plugins=(git npm)
+plugins=(git pass)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -41,7 +41,7 @@ export SLACK_TOKEN="xoxp-3016978776-14661715477-39734653985-226cdfbbfc"
 
 # removing git to use sammy theme 2019-10-03
 # export RPROMPT='$(git_prompt_info) $(triton_profile) $(nvm_prompt_info) $(rvm_prompt_info)'
-export RPROMPT='$(triton_profile) $(nvm_prompt_info) $(rvm_prompt_info)'
+# export RPROMPT='$(triton_profile) $(nvm_prompt_info) $(rvm_prompt_info)'
 
 function clone () {
   org=$1
@@ -329,5 +329,7 @@ source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
-export GOPATH="$HOME/go"; export GOROOT="$HOME/.go"; PATH="$GOPATH/bin:$PATH"; # g-install: do NOT edit, see https://github.com/stefanmaric/g
+# export PATH="$PATH:$HOME/.rvm/bin"
+# export GOPATH="$HOME/go"; export GOROOT="$HOME/.go"; PATH="$GOPATH/bin:$PATH"; # g-install: do NOT edit, see https://github.com/stefanmaric/g
+
+. $HOME/.asdf/asdf.sh
