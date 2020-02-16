@@ -1,7 +1,7 @@
 ZSH=$HOME/.oh-my-zsh
 
-# ZSH_THEME=xiong-chiamiov-plus
-ZSH_THEME=sammy
+ZSH_THEME=xiong-chiamiov-plus
+# ZSH_THEME=sammy
 
 CASE_SENSITIVE="true"
 
@@ -37,11 +37,13 @@ set -o vi
 bindkey -v
 bindkey "^R" history-incremental-search-backward
 
-export SLACK_TOKEN="xoxp-3016978776-14661715477-39734653985-226cdfbbfc"
-
 # removing git to use sammy theme 2019-10-03
 # export RPROMPT='$(git_prompt_info) $(triton_profile) $(nvm_prompt_info) $(rvm_prompt_info)'
 # export RPROMPT='$(triton_profile) $(nvm_prompt_info) $(rvm_prompt_info)'
+
+# kube-ps1
+source /home/daachi/src/kube-ps1/kube-ps1.sh
+export PROMPT='$(kube_ps1)'$PROMPT
 
 function clone () {
   org=$1
@@ -52,7 +54,7 @@ function clone () {
 
 # am I available to do something on a particular date?
 function avail () {
-  a=`date --date="$1" +%V` 
+  a=`date --date="$1" +%V`
   if (( $a % 2 )) > 0
   then
     echo "Yaas"
@@ -72,10 +74,6 @@ function check_certificate () {
       openssl s_client -showcerts -connect $1:443 2>/dev/null |\
       openssl x509 -inform pem -noout -dates
   fi
-}
-
-function slack-notification () {
-  curl -X POST --data-urlencode "payload={\"channel\": \"@daachi\", \"username\": \"cli\", \"text\": \"$1\", \"icon_emoji\": \":ghost:\"}" https://hooks.slack.com/services/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
 }
 
 function ec2_id () {
@@ -132,7 +130,7 @@ function tpsc () {
   esac
 }
 
-# use this to lookup a hostname, since we don't do DNS well
+# low budget DNS
 function reverse () {
   if [ $# -ne 2 ]
   then
@@ -252,6 +250,24 @@ function j () {
   popd
 }
 
+# journal for OT
+function otj () {
+  year=`date +%Y`
+  month=`ruby -e 'puts %x(date +%b).downcase'`
+  day=`date +%e`
+  otj_dir="$HOME/tmp/otj/$year/$month"
+
+  if [[ -d $otj_dir ]] {
+    pushd $otj_dir
+  } else {
+    mkdir -p $otj_dir
+    pushd $otj_dir
+  }
+
+  vim $day.txt
+  popd
+}
+
 amtool-conf () {
   case $1 in
     (set)
@@ -281,10 +297,6 @@ alias vd='vagrant destroy -f'
 alias vs='vagrant ssh'
 alias vu='vagrant up'
 
-# i3 on ThinkPad
-alias nocaps='setxkbmap -option ctrl:nocaps'
-alias monitorme='xrandr --output DP2 --mode 1920x1080 --left-of eDP1'
-
 # triton
 alias tls='triton ls'
 alias tpls='triton profile list'
@@ -301,19 +313,10 @@ alias de='docker exec -it'
 # koo bear ne taes
 alias k=kubectl
 alias kx=kubectx
+alias kn=kubens
 
-export NVM_DIR="/home/daachi/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-
-## sdc-*
-## manta
-export MANTA_USER=optoro;
-export MANTA_SUBUSER=aburton;
-export MANTA_KEY_ID=ab:1b:48:6c:33:13:77:ae:18:6c:d8:8c:89:de:90:fb;
-export MANTA_URL=https://us-east.manta.joyent.com;
-
-# export GOPATH="${HOME}/src/go-work"
-# path+=(/usr/local/go/bin:${GOPATH}/bin)
+export GOPATH="${HOME}/src/go"
+path+=(${GOPATH}/bin)
 
 #dart
 path+=(/usr/lib/dart/bin)
@@ -327,9 +330,5 @@ path+=(~/bin)
 source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-# export PATH="$PATH:$HOME/.rvm/bin"
-# export GOPATH="$HOME/go"; export GOROOT="$HOME/.go"; PATH="$GOPATH/bin:$PATH"; # g-install: do NOT edit, see https://github.com/stefanmaric/g
 
 . $HOME/.asdf/asdf.sh
